@@ -13,3 +13,8 @@
 - Transaction searching by tx hash or height.
 - Blockchain information.
 
+
+# Change log
+
+## [v1.0](https://github.com/ignassimkunas/BitcoinExplorer/releases/tag/v1.0)
+- Initial release.
