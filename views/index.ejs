@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Block Explorer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">  
+  </head>
+  <body>
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="p-4 pt-5">
+	        <ul class="list-unstyled components mb-5">
+	          <li >
+	            <a id="blocks" href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Blocks</a>
+	            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a id="all-blocks">All Blocks</a>
+                </li>
+                <li>
+                    <a id="block-by-number">Block By Height</a>
+                </li>
+
+                <li>
+                    <a id="block-by-hash"href="#">Block By Hash</a>
+                </li>
+	            </ul>
+	          </li>
+	          <li>
+	              <a id="transactions" href="#transactionsMenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Transactions</a>
+                <ul class="collapse list-unstyled" id="transactionsMenu">
+                  <li>
+                      <a id="transactions-by-hash"href="#">Transactions By Hash</a>
+                  </li>
+                  <li>
+                      <a id="transactions-by-block"href="#">Transactions By Block</a>
+                  </li>
+                  <li>
+                      <a id="unconfirmed-transactions">Unconfirmed Transactions</a>
+                  </li>
+                </ul>
+	          </li>
+	          <li>
+                <a id="info">Info</a>
+            </li>
+	        </ul>
+	      </div>
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+      
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="mod-title"></h5>
+              </div>
+              <div class="modal-body">
+                <p id="height"></p>
+                <p id="hash"></p>
+                <p id="merkle"></p>
+                <p id="size"></p>
+                <p id="nTx"></p>
+                <p id="difficulty"></p>
+                <p id="version"></p>
+                <p id="time"></p>
+                <p id="weight"></p>
+                <p id="nonce"></p>
+                <p id="confirmations"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="tx-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="tx-mod-title"></h5>
+              </div>
+              <div class="modal-body">
+                <p id="modal-tx-hash"></p>
+                <p id="index"></p>
+                <p id="time"></p>
+                <p id="rate"></p>
+                <p id="version"></p>
+                <p id="ammount-btc"></p>
+                <p id="ammount-usd"></p>
+                <p id="ammount-eur"></p>
+                <p id="ammount-gbp"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+           <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Toggle Menu</span>
+          </button>
+          <div id="all-blocks-content" class="content">
+            <h2 id="content-name" class="mb-4">All Blocks</h2>
+            <table id="blocks-content-table" class="table table-stripped">
+                <th scope="col">Height</th>
+                <th scope="col">Hash</th>
+                <th scope="col">Mined</th>
+            </table>
+            <a id="load-more-blocks">Load more</a>
+          </div>
+          <div id="block-by-number-content" class="content">
+            <h2 id="content-name" class="mb-4">Block By Height</h2>
+            <div class="input-group mb-3">
+              <input id="height-input" type="text" class="form-control" placeholder="Height of Block" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary search" type="button" id="height-search-button">Search</button>
+              </div>
+            </div>
+            <div style="margin-top: 50px;">
+              <p id="byheight-height"></p>
+              <p id="byheight-hash"></p>
+              <p id="byheight-merkle"></p>
+              <p id="byheight-size"></p>
+              <p id="byheight-nTx"></p>
+              <p id="byheight-version"></p>
+              <p id="byheight-time"></p>
+              <p id="byheight-nonce"></p>
+            </div>
+          </div>
+          <div id="block-by-hash-content" class="content">
+            <h2 id="content-name" class="mb-4">Block By Hash</h2>
+            <div class="input-group mb-3">
+              <input id="hash-input" type="text" class="form-control" placeholder="Hash of Block" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary search" type="button" id="hash-search-button">Search</button>
+              </div>
+            </div>
+            <div style="margin-top: 50px;">
+              <p id="byhash-height"></p>
+              <p id="byhash-hash"></p>
+              <p id="byhash-merkle"></p>
+              <p id="byhash-size"></p>
+              <p id="byhash-nTx"></p>
+              <p id="byhash-version"></p>
+              <p id="byhash-time"></p>
+              <p id="byhash-nonce"></p>
+            </div>
+          </div>
+
+          <div id="transaction-block-content" class="content">
+            <h2 id="content-name" class="mb-4">Transactions By Block</h2>
+            <div class="input-group mb-3">
+              <input id="transaction-block-input" type="text" class="form-control" placeholder="Height/Hash of Block" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary search" type="button" id="transaction-block-search-button">Search</button>
+              </div>
+            </div>
+            <table id="transactions-block-content-table" class="table table-stripped">
+                <th scope="col">Hash</th>
+                <th scope="col">Time</th>
+                <th scope="col">Fee</th>
+                <th scope="col">Ammount(BTC)</th>
+                <th scope="col">Ammount(USD)</th>
+            </table>
+          </div>
+
+          <div id="transaction-hash-content" class="content">
+            <h2 id="content-name" class="mb-4">Transaction By Hash</h2>
+            <div class="input-group mb-3">
+              <input id="tx-hash-input" type="text" class="form-control" placeholder="Hash of Transaction" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary search" type="button" id="transaction-hash-search-button">Search</button>
+              </div>
+            </div>
+            <div style="margin-top: 50px;">
+              <p id="th-hash"></p>
+              <p id="th-block"></p>
+              <p id="th-fee"></p>
+              <p id="th-time"></p>
+              <p id="th-index"></p>
+              <p id="th-version"></p>
+              <div id="tx-io">
+                <p><strong>Inputs:</strong></p><hr>
+                <div style="display: inline" id="th-inputs"></div>
+                <p><strong>Outputs:</strong></p><hr>
+                <div style="display: inline" id="th-outputs"></div>
+              </div>
+            </div>
+          </div>
+          <div id="unconfirmed-transactions-content" class="content">
+            <h2 id="content-name" class="mb-4">Unconfirmed Transactions</h2>
+            <table id="transactions-content-table" class="table table-stripped">
+                <th scope="col">Height</th>
+                <th scope="col">Hash</th>
+                <th scope="col">Mined</th>
+            </table>
+            <a id="load-more-transactions">Load more</a>
+          </div>
+          <div id ="blockchain-info-content" class="content">
+            <h2 id="content-name" class="mb-4">Info</h2>
+              <p id="bc-size"></p>
+              <p id="mempool-size"></p>
+              <p id="difficulty"></p>
+              <p id="median-confirmation-time"></p>
+              <p id="best-block-hash"></p>
+              <p id="price-usd"></p>
+              <p id="work-data"></p>
+              <p id="work-target"></p>
+          </div>
+        </div>
+      </div>
+		</div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
+</html>
