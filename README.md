@@ -5,6 +5,10 @@
 
 ### * Using bcoin API. *
 
+### Requires a bitcoin full node running locally, specifically on bcoin.
+
+
+
 
 # Functions
 
